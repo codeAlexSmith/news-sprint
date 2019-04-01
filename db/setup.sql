@@ -1,0 +1,5 @@
+DROP DATABASE IF EXISTS News-sprint;
+CREATE DATABASE News-sprint;
+
+DROP DATABASE IF EXISTS News-sprint_test;
+CREATE DATABASE News-sprint_test;
