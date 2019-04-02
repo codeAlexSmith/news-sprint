@@ -7,5 +7,5 @@ const data = {
   test,
 };
 
-console.log(data[ENV])
+
 module.exports = data[ENV];

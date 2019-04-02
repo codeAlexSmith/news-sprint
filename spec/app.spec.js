@@ -32,4 +32,27 @@ describe("/", () => {
             });
         });
     });
+    
+    describe("/topics", () => {
+        it("GET status:200", () => {
+            return request.get("/api/topics").expect(200)
+            .then((res) => {
+              expect(Array.isArray(res.body.topics)).to.equal(true);
+              res.body.topics.forEach(topics => expect(topics).to.contain.keys(['description', 'slug']));
+            });
+        });
+    });
+
+    describe("/articles", () => {
+        it("GET status:200", () => {
+            return request.get("/api/articles").expect(200)
+            .then((res) => {
+              expect(Array.isArray(res.body.articles)).to.equal(true);
+              res.body.articles.forEach(articles => {
+                  expect(articles).to.contain.keys(['article_id', 'author', 'body', 'title', 'topic', 'votes']);
+                  expect(articles.votes>=0).to.equal(true);
+            });
+        });
+    });
+    })
 });
