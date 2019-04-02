@@ -9,7 +9,7 @@ exports.seed = (knex, Promise) => {
     .then(() => {
        return knex('users').insert(data.users).returning('*')
       }).then(()=>{
-          return knex('topics'.insert(data.topics).returning('*'))
+          return knex('topics').insert(data.topics).returning('*')
       });;
 };
 
