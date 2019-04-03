@@ -37,3 +37,11 @@ exports.removeArticle = (req, res) => {
     .del()
     
 }
+
+exports.fetchCommentsByArticle = (req, res) => {
+    console.log(req.params.article_id, '<<<<<<')
+    return connection.select('*')
+        .from('comments')
+        .where('article_id', '=', req.params.article_id)
+    
+}

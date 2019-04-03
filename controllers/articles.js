@@ -1,4 +1,4 @@
-const { fetchArticles, fetchArticleById, updateArticle, removeArticle } = require("../models/articles");
+const { fetchArticles, fetchArticleById, updateArticle, removeArticle, fetchCommentsByArticle } = require("../models/articles");
 
 exports.getArticles = (req, res, next) => {
     const query = req.query
@@ -24,5 +24,11 @@ exports.patchArticle = (req, res, next) => {
 exports.deleteArticle = (req, res, next) => {
     removeArticle(req).then(article => {
         res.status(204).send({article})
+    });
+};
+
+exports.getCommentsByArticle = (req, res, next) => {
+    fetchCommentsByArticle(req).then(comments => {
+        res.status(200).send({comments})
     });
 };

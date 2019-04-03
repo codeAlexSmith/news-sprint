@@ -156,4 +156,12 @@ describe("/", () => {
             
         });
     });
+
+    describe('/api/articles/:article_id/comments', () => {
+        it('gets the comments by article_id', () => {
+              return request.get('/api/articles/5/comments')
+              .expect(200)
+              .then((res)=>{res.body.comments.forEach(comment => expect(comment.article_id).to.equal(5))})
+            })
+        });
 })
