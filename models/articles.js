@@ -25,8 +25,7 @@ exports.fetchArticleById = ({ article_id }) => {
 };
 
 exports.updateArticle = (req, res) => {
-    console.log(req.params.article_id, '<<<<')
     return connection('articles')
     .where('article_id','=',req.params.article_id)
-    .update(req.body, ['title'])
+    .increment(req.body, ['votes']).returning('*');
 }

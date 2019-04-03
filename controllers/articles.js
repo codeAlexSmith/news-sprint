@@ -16,8 +16,6 @@ exports.getArticleById = (req, res, next) => {
 };
 
 exports.patchArticle = (req, res, next) => {
-    console.log(req, '<<<<<')
-    console.log(updateArticle.toString())
     updateArticle(req).then(article => {
         res.status(202).send({article})
     });

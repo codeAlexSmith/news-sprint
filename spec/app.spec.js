@@ -12,7 +12,7 @@ chai.use(chaiSorted);
 const request = supertest(app);
 
 describe("/", () => {
-   // beforeEach(() => connection.seed.run());
+     beforeEach(() => connection.seed.run());
     after(() => connection.destroy());
 
     describe("/api", () => {
@@ -123,13 +123,32 @@ describe("/", () => {
     describe("/patch Article", () => {
         it("GET status:202", () => {
             return request.patch("/api/articles/3")
-            .send({ title: 'testtetsttvetevcev' })
+            .send({ votes: 5 })
             .expect(202)
             .then((res)=>{
+                console.log(res.body,'<<<<<<')
+                expect(res.body.article[0]).to.contain.keys('author', 'body', 'votes')
                 return request.get('/api/articles/3')
                 .expect(200)
-                .then((res) => console.log(res.body))});
+                .then((res) => expect(res.body.article_id[0].votes).to.equal(5))
+                .then((res) => {
+                     return request.patch("/api/articles/3")
+                    .send({ votes: 5 })
+                    .expect(202)
+                    .then((res)=>{
+                    return request.get('/api/articles/3')
+                    .expect(200)
+                .then((res) => expect(res.body.article_id[0].votes).to.equal(10));
+                 })
+            });
         });
     });
-});
-});
+    });
+    });
+
+    describe('/DELETE article', () => {
+        it('Deleteds the coreesponding article', () => {
+            
+        });
+    });
+})
