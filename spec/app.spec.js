@@ -9,7 +9,7 @@ const connection = require("../db/connection");
 const request = supertest(app);
 
 describe("/", () => {
-    // beforeEach(() => connection.seed.run());
+   // beforeEach(() => connection.seed.run());
     after(() => connection.destroy());
 
     describe("/api", () => {
@@ -49,8 +49,38 @@ describe("/", () => {
             .then((res) => {
               expect(Array.isArray(res.body.articles)).to.equal(true);
               res.body.articles.forEach(articles => {
-                  expect(articles).to.contain.keys(['article_id', 'author', 'body', 'title', 'topic', 'votes']);
+                  expect(articles).to.contain.keys(['article_id', 'author', 'comment_count', 'title', 'topic', 'votes']);
                   expect(articles.votes>=0).to.equal(true);
+            });
+        });
+    });
+    })
+
+    describe("/articles?author=butter_bridge", () => {
+        it("GET status:200", () => {
+            return request.get("/api/articles?author=butter_bridge").expect(200)
+            .then((res) => {
+                res.body.articles.forEach(article => expect(article.author).to.equal('butter_bridge'))
+            });
+        });
+    });
+ 
+    describe("/articles?topic=mitch", () => {
+        it("GET status:200", () => {
+            return request.get("/api/articles?author=butter_bridge").expect(200)
+            .then((res) => {
+                res.body.articles.forEach(article => expect(article.topic).to.equal('mitch'))
+            });
+        });
+    });
+   
+    describe("/comments", () => {
+        it("GET status:200", () => {
+            return request.get("/api/comments").expect(200)
+            .then((res) => {
+              expect(Array.isArray(res.body.comments)).to.equal(true);
+              res.body.comments.forEach(comments => {
+                  expect(comments).to.contain.keys(['article_id', 'author', 'body', 'votes', 'comment_id', 'created_at']);
             });
         });
     });

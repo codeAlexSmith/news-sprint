@@ -2,4 +2,4 @@
 exports.articles = require('./articles');
 exports.topics = require('./topics');
 exports.users = require('./users');
-exports.commnents = require('./comments');
+exports.comments = require('./comments');
