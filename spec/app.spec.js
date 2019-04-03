@@ -119,5 +119,17 @@ describe("/", () => {
             });
         });
     });
-    })
+
+    describe("/patch Article", () => {
+        it("GET status:202", () => {
+            return request.patch("/api/articles/3")
+            .send({ title: 'testtetsttvetevcev' })
+            .expect(202)
+            .then((res)=>{
+                return request.get('/api/articles/3')
+                .expect(200)
+                .then((res) => console.log(res.body))});
+        });
+    });
+});
 });

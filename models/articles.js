@@ -15,7 +15,6 @@ exports.fetchArticles = ({author, topic, sort_by = 'created_at', order = 'desc'}
 };
 
 exports.fetchArticleById = ({ article_id }) => {
-    console.log('model')
     return connection
     .select('articles.article_id','title', 'articles.author', 'articles.body ', 'topic', 'articles.created_at', 'articles.votes')
     .from('articles')
@@ -24,3 +23,10 @@ exports.fetchArticleById = ({ article_id }) => {
     .leftJoin('comments', 'articles.article_id', 'comments.article_id')
     .groupBy('articles.article_id')
 };
+
+exports.updateArticle = (req, res) => {
+    console.log(req.params.article_id, '<<<<')
+    return connection('articles')
+    .where('article_id','=',req.params.article_id)
+    .update(req.body, ['title'])
+}
