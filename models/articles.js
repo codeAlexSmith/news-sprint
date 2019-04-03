@@ -29,3 +29,11 @@ exports.updateArticle = (req, res) => {
     .where('article_id','=',req.params.article_id)
     .increment(req.body, ['votes']).returning('*');
 }
+
+exports.removeArticle = (req, res) => {
+    console.log(req.params.article_id, '<<<<<<')
+    return connection('articles')
+    .where('article_id','=',req.params.article_id)
+    .del()
+    
+}

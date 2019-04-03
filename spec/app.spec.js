@@ -126,19 +126,18 @@ describe("/", () => {
             .send({ votes: 5 })
             .expect(202)
             .then((res)=>{
-                console.log(res.body,'<<<<<<')
                 expect(res.body.article[0]).to.contain.keys('author', 'body', 'votes')
                 return request.get('/api/articles/3')
                 .expect(200)
                 .then((res) => expect(res.body.article_id[0].votes).to.equal(5))
                 .then((res) => {
                      return request.patch("/api/articles/3")
-                    .send({ votes: 5 })
+                    .send({ votes: -2 })
                     .expect(202)
                     .then((res)=>{
                     return request.get('/api/articles/3')
                     .expect(200)
-                .then((res) => expect(res.body.article_id[0].votes).to.equal(10));
+                .then((res) => expect(res.body.article_id[0].votes).to.equal(3));
                  })
             });
         });
@@ -147,7 +146,13 @@ describe("/", () => {
     });
 
     describe('/DELETE article', () => {
-        it('Deleteds the coreesponding article', () => {
+        it('Deletes the coresponding article', () => {
+            return request.delete('/api/articles/4')
+            .expect(204)
+            .then((res) => {
+                return request.get('/api/articles')
+                .then((res) => res.body.articles.forEach(art => art.article_id !== 4))
+              })
             
         });
     });
