@@ -72,6 +72,6 @@ exports.createComment = (req, res) => {
         author: req.body.username,
         article_id: req.params.article_id,
         body: req.body.comment,
-        created_at: new Date(Date.now())
+        // created_at: new Date(Date.now()) no longer needed as defaulted
     }).returning('*');
 };

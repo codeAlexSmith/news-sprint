@@ -6,7 +6,8 @@ exports.fetchUsers = () => {
     }
 
     exports.fetchSingleUser = (req) => {
-
     return connection
-      .select('*').from('users').where('username', '=', req.params.username);
+      .select('*')
+      .from('users')
+      .where('username', '=', req.params.username);
     }

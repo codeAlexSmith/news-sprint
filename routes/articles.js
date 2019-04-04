@@ -8,7 +8,6 @@ articlesRouter.route('/:article_id')
 .get(getArticleById)
 .patch(patchArticle)
 .delete(deleteArticle);
-console.log(getCommentsByArticle)
 
 articlesRouter.route('/:article_id/comments')
 .get(getCommentsByArticle)

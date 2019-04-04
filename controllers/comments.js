@@ -13,8 +13,6 @@ exports.patchComment = (req, res, next) => {
 };
 
 exports.deleteComment = (req, res, next) => {
-    console.log('controller', removeComment)
-    
     removeComment(req).then(comment => {
         res.status(204).send({ comment });
     });

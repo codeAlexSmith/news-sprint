@@ -15,17 +15,6 @@ describe("/", () => {
      beforeEach(() => connection.seed.run());
     after(() => connection.destroy());
 
-    describe("/api", () => {
-        it("GET status:200", () => {
-            return request
-                .get("/api")
-                .expect(200)
-                .then(({ body }) => {
-                    expect(body.ok).to.equal(true);
-                });
-        });
-    });
-
     describe("/users", () => {
         it("GET status:200", () => {
             return request.get("/api/users").expect(200)
@@ -165,12 +154,14 @@ describe("/", () => {
             })
         });
 
-    describe('/api/articles/:article_id/comments', () => {
-        it('gets the comments by article_id', () => {
+    describe.only('/api/articles/:article_id/comments', () => {
+        it.only('gets the comments by article_id', () => {
               return request.post('/api/articles/5/comments')
               .send({username: 'icellusedkars', comment: 'something vague' })
               .expect(202)
-              .then((res)=>{expect(res.body.comments[0]).to.contain.keys(['body', 'created_at'])
+              .then((res)=>{
+              console.log(res.body.comments[0].created_at)    
+              expect(res.body.comments[0]).to.contain.keys(['body', 'created_at'])
               expect(res.body.comments[0].body).equal('something vague')})
             })
         });
@@ -198,11 +189,22 @@ describe("/", () => {
             });
         });
     
-        describe('/get user by usernane', () => {
+        describe('/get user by username', () => {
             it('Deletes the coresponding comment', () => {
                 return request.get('/api/users/icellusedkars')
                 .expect(200)
-                    .then((res) => expect(res.body).to.contain.keys('user', 'avatar_url', 'name'))
+
+                    .then((res) => expect(res.body.user[0]).to.contain.keys('username', 'avatar_url', 'name'))
+            });
+        });
+       
+        describe('get information on endpoints from /api/', () => {
+            it('respinds with a json object which has the relevant endpoint information', () => {
+                return request
+                .get('/api/')
+                .expect(200)
+                    .then((res) =>{ console.log(res.text)
+                    })
             });
         });
 })
