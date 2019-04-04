@@ -88,7 +88,8 @@ describe("/", () => {
             return request
                 .put("/api/articles")
                 .expect(405)
-                .then(res => { expect(res.body).to.eql({msg: 'Method Not Allowed'})
+                .then(res => {
+                    expect(res.body).to.eql({ msg: "Method Not Allowed" });
                 });
         });
     });
@@ -109,9 +110,14 @@ describe("/", () => {
                 .get("/api/articles?author=icellusedkars")
                 .expect(200)
                 .then(res => {
-                    res.body.articles.forEach(article =>{
-                        expect(article.author).to.equal("icellusedkars")
-                        expect(article).to.contain.keys('article_id', 'topic', 'votes', 'comment_count')
+                    res.body.articles.forEach(article => {
+                        expect(article.author).to.equal("icellusedkars");
+                        expect(article).to.contain.keys(
+                            "article_id",
+                            "topic",
+                            "votes",
+                            "comment_count"
+                        );
                     });
                 });
         });
@@ -119,7 +125,8 @@ describe("/", () => {
             return request
                 .put("/api/articles?author=icellusedcars")
                 .expect(405)
-                .then(res => { expect(res.body).to.eql({msg: 'Method Not Allowed'})
+                .then(res => {
+                    expect(res.body).to.eql({ msg: "Method Not Allowed" });
                 });
         });
     });

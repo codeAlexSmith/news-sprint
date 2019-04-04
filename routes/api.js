@@ -6,7 +6,8 @@ const { articlesRouter } = require("../routes/articles");
 const { commentsRouter } = require("../routes/comments");
 const { apiGet } = require("../controllers/api");
 
-apiRouter.route("/")
+apiRouter
+    .route("/")
     .get(apiGet)
     .all(methodNotAllowed);
 
