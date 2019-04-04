@@ -208,4 +208,35 @@ describe("/", () => {
                     })
             });
         });
+        
+        describe('Can handle all method not allowed errors', () => {
+            it('responds with message not allowed when url is correct but method is wrong test 1', () => {
+                return request
+                .post('/api/')
+                .expect(405)
+                    .then((res) =>{ expect(res.body.msg).to.equal('Method Not Allowed')
+                    })
+            });
+            it('responds with message not allowed when url is correct but method is wrong test 2', () => {
+                return request
+                .post('/api/articles/')
+                .expect(405)
+                    .then((res) =>{ expect(res.body.msg).to.equal('Method Not Allowed')
+                    })
+            });
+            it('responds with message not allowed when url is correct but method is wrong test 3', () => {
+                return request
+                .post('/api/topics/')
+                .expect(405)
+                    .then((res) =>{ expect(res.body.msg).to.equal('Method Not Allowed')
+                    })
+            });
+            it('responds with message not allowed when url is correct but method is wrong test 4', () => {
+                return request
+                .put('/api/comments/5')
+                .expect(405)
+                    .then((res) =>{ expect(res.body.msg).to.equal('Method Not Allowed')
+                    })
+            });
+        });
 })
