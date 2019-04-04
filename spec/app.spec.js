@@ -154,8 +154,8 @@ describe("/", () => {
             })
         });
 
-    describe.only('/api/articles/:article_id/comments', () => {
-        it.only('gets the comments by article_id', () => {
+    describe('/api/articles/:article_id/comments', () => {
+        it('gets the comments by article_id', () => {
               return request.post('/api/articles/5/comments')
               .send({username: 'icellusedkars', comment: 'something vague' })
               .expect(202)
@@ -203,7 +203,8 @@ describe("/", () => {
                 return request
                 .get('/api/')
                 .expect(200)
-                    .then((res) =>{ console.log(res.text)
+                    .then((res) =>{ expect(typeof res.body).to.equal('object')
+                    expect(res.body).to.contain.keys('/','/users', '/topics', '/comments', '/articles')
                     })
             });
         });

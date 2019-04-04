@@ -1,5 +1,5 @@
 exports.obj = {
-    "/users/": {
+    "/users": {
         "/": { get: "returns all users" },
         "/:username": { get: "returns user by username" }
     },
@@ -24,7 +24,4 @@ exports.obj = {
         }
     },
     "/": { get: "Returns this object containing endpoints" }
-};
-exports.fetchEndPoints = () => {
-    return new Promise((res, rej) => console.log(object), res(obj));
 };
