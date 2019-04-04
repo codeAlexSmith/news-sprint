@@ -1,5 +1,10 @@
 const express = require("express");
 const topicsRouter = express.Router();
 const { getTopics } = require("../controllers/topics");
-topicsRouter.route("/").get(getTopics);
+const { methodNotAllowed } = require("../errors");
+
+topicsRouter.route("/")
+.get(getTopics)
+.all(methodNotAllowed);
+
 module.exports = { topicsRouter };
