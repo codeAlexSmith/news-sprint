@@ -185,4 +185,24 @@ describe("/", () => {
               })
             })
         });
+
+    describe('/DELETE comment', () => {
+            it('Deletes the coresponding comment', () => {
+                return request.delete('/api/comments/15')
+                .expect(204)
+                .then((res) => {
+                    return request.get('/api/comments')
+                    .then((res) => res.body.comments.forEach(com =>  expect(com.comment_id !== 15)))
+                  })
+                
+            });
+        });
+    
+        describe('/get user by usernane', () => {
+            it('Deletes the coresponding comment', () => {
+                return request.get('/api/users/icellusedkars')
+                .expect(200)
+                    .then((res) => expect(res.body).to.contain.keys('user', 'avatar_url', 'name'))
+            });
+        });
 })

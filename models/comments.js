@@ -12,3 +12,10 @@ exports.editComment = (req, res) => {
     .increment(req.body, ["votes"])
     .returning("*");
 };
+
+exports.removeComment = (req, res) => {
+    return connection('comments')
+    .where('comment_id' , '=', req.params.comment_id)
+    .del();
+
+};
