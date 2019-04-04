@@ -164,4 +164,25 @@ describe("/", () => {
               .then((res)=>{res.body.comments.forEach(comment => expect(comment.article_id).to.equal(5))})
             })
         });
+
+    describe('/api/articles/:article_id/comments', () => {
+        it('gets the comments by article_id', () => {
+              return request.post('/api/articles/5/comments')
+              .send({username: 'icellusedkars', comment: 'something vague' })
+              .expect(202)
+              .then((res)=>{expect(res.body.comments[0]).to.contain.keys(['body', 'created_at'])
+              expect(res.body.comments[0].body).equal('something vague')})
+            })
+        });
+    
+    describe('/api/comments/:comment_id', () => {
+        it('patchess the comments votes by comment_id', () => {
+              return request.patch('/api/comments/3')
+              .send({votes: -4})
+              .expect(202)
+              .then((res)=>{expect(res.body.comment[0].votes).to.equal(96)
+                console.log(res.body.comment)
+              })
+            })
+        });
 })
