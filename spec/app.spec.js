@@ -203,19 +203,23 @@ describe("/", () => {
                     expect(res.body.article_id[0].comment_count).to.equal("0");
                 });
         });
-       
-        it('returns a 400 when given a non numeric value ', () => {
+
+        it("returns a 400 when given a non numeric value ", () => {
             return request
                 .get("/api/articles/3a")
                 .expect(400)
-                .then(res => {expect(res.body).to.eql({msg: 'Bad Request Not Found'})})
+                .then(res => {
+                    expect(res.body).to.eql({ msg: "Bad Request Not Found" });
+                });
         });
-       
-        it('returns a 404 when given numeric value of a  non existent article', () => {
+
+        it("returns a 404 when given numeric value of a  non existent article", () => {
             return request
                 .get("/api/articles/340")
                 .expect(404)
-                .then(res => {expect(res.body).to.eql({msg: 'Route Not Found'})})
+                .then(res => {
+                    expect(res.body).to.eql({ msg: "Route Not Found" });
+                });
         });
     });
 
@@ -310,14 +314,16 @@ describe("/", () => {
             return request
                 .get("/api/articles/g/comments")
                 .expect(400)
-                .then(res => { expect(res.body).to.eql({ msg: 'Bad Request Not Found' })
+                .then(res => {
+                    expect(res.body).to.eql({ msg: "Bad Request Not Found" });
                 });
         });
         it("handles errors for a non existent article_id", () => {
             return request
                 .get("/api/articles/5555/comments")
                 .expect(404)
-                .then(res => { expect(res.body).to.eql({"msg": "Route Not Found"})
+                .then(res => {
+                    expect(res.body).to.eql({ msg: "Route Not Found" });
                 });
         });
     });
