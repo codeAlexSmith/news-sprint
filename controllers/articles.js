@@ -6,6 +6,7 @@ const {
     fetchCommentsByArticle,
     createComment
 } = require("../models/articles");
+const { handle400 , routeNotFound} = require('../errors/index') 
 
 exports.getArticles = (req, res, next) => {
     const query = req.query;
@@ -17,9 +18,13 @@ exports.getArticles = (req, res, next) => {
 
 exports.getArticleById = (req, res, next) => {
     const params = req.params;
+    const validNum = !(new RegExp(/[0-9]+/).test(req.params.article_id) && !(new RegExp(/[A-z]+/).test(req.params.article_id)));
+    if(validNum) handle400(req, res);
+    else{
     fetchArticleById(params).then(article_id => {
-        res.status(200).send({ article_id });
-    });
+        if(article_id.length === 0) routeNotFound(req, res);
+        else res.status(200).send({ article_id });
+    });}
 };
 
 exports.patchArticle = (req, res, next) => {

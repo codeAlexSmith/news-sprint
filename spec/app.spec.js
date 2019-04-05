@@ -182,8 +182,8 @@ describe("/", () => {
         });
     });
 
-    describe("/articles/3", () => {
-        it("GET status:200", () => {
+    describe.only("/articles/3", () => {
+        it("Can Get the correct article when provided with a correct article ID", () => {
             return request
                 .get("/api/articles/3")
                 .expect(200)
@@ -202,6 +202,20 @@ describe("/", () => {
                     ]);
                     expect(res.body.article_id[0].comment_count).to.equal("0");
                 });
+        });
+       
+        it('returns a 400 when given a non numeric value ', () => {
+            return request
+                .get("/api/articles/3a")
+                .expect(400)
+                .then(res => {expect(res.body).to.eql({msg: 'Bad Request Not Found'})})
+        });
+       
+        it('returns a 404 when given numeric value of a  non existent article', () => {
+            return request
+                .get("/api/articles/340")
+                .expect(404)
+                .then(res => {expect(res.body).to.eql({msg: 'Route Not Found'})})
         });
     });
 

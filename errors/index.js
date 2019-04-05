@@ -8,7 +8,7 @@ exports.handle422 = (req, res) => {
 };
 
 exports.handle400 = (req, res) => {
-  res.status(400).send({ msg: 'Route Not Found' });
+  res.status(400).send({ msg: 'Bad Request Not Found' });
 };
 
 exports.methodNotAllowed = (req, res) => {

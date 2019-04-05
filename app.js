@@ -10,6 +10,7 @@ app.use("/api", apiRouter);
 
 app.all("/*", routeNotFound);
 
+app.use(handle422);
 app.use(handle400);
 app.use(handle500);
 
