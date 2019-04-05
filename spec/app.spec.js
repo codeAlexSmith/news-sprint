@@ -295,7 +295,7 @@ describe("/", () => {
         });
     });
 
-    describe("/api/articles/:article_id/comments", () => {
+    describe.only("/api/articles/:article_id/comments", () => {
         it("gets the comments by article_id", () => {
             return request
                 .get("/api/articles/5/comments")
@@ -304,6 +304,20 @@ describe("/", () => {
                     res.body.comments.forEach(comment =>
                         expect(comment.article_id).to.equal(5)
                     );
+                });
+        });
+        it("hsndles errors for a non-valid article_id", () => {
+            return request
+                .get("/api/articles/g/comments")
+                .expect(400)
+                .then(res => { expect(res.body).to.eql({ msg: 'Bad Request Not Found' })
+                });
+        });
+        it("handles errors for a non existent article_id", () => {
+            return request
+                .get("/api/articles/5555/comments")
+                .expect(404)
+                .then(res => { expect(res.body).to.eql({"msg": "Route Not Found"})
                 });
         });
     });
