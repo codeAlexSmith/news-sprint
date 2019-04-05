@@ -17,9 +17,15 @@ exports.formatComments = (commentsArray, articlesArray) => {
     formattedComments.forEach(comment => {
         comment.author = comment.created_by;
         delete comment.created_by;
-        comment.article_id = articlesArray.find(
+        
+        comment.article_id = articlesArray[articlesArray.findIndex(
             article => comment.belongs_to === article.title
-        ).article_id;
+            )].article_id;
+            // console.log(articlesArray[articlesArray.findIndex(
+            //     article => comment.belongs_to === article.title
+            //     )]);
+
+
         delete comment.belongs_to;
         comment.created_at = new Date(comment.created_at);
     });
