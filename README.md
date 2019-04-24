@@ -1,4 +1,5 @@
 # News-sprint
+This suite of documents contains
 
 ## Available Scripts
 
